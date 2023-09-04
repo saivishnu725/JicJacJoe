@@ -69,8 +69,8 @@ public class JicJacJoe {
                     if (board[1][1].equals("9"))
                         
                     break;
-                case "X":
-                case "x":
+                case "Q":
+                case "q":
                     // showScore();
                     return;
                 default:
