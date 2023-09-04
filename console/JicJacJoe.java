@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class JicJacJoe {
     static String[][] board = {
@@ -10,25 +12,38 @@ public class JicJacJoe {
             { "|", "7", "|", "8", "|", "9", "|" },
             { "|", "-", "-", "-", "-", "-", "|" },
     };
+
     // current player: X or Y
     static String current = "X";
 
+    // visuals of the board on screen
+    // store separately for easy checking
+    static int[] values = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+    // as for clear screen
+    static boolean clear = false;
+
+    // invalid input
+    static boolean invalidInput = false;
+
+    // score for p1 and p2
+    static int[] score = { 0, 0 };
+
     public static void main(String[] args) throws IOException {
+
         // input bs
         InputStreamReader reader = new InputStreamReader(System.in);
         BufferedReader read = new BufferedReader(reader);
-        // ask for clear screen or continue
-        boolean clearScreen = false;
 
         // input var
         String input = "";
-        // score for p1 and p2
-        int score[] = { 0, 0 };
-        // visuals of the board on screen
-        // store separately for easy checking
-        int values[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        clearScreen();
+        // ask for clearing screen
+        System.out.print("Do yo want to clear screen every attempt?(Y/N): ");
+        if (read.readLine().equalsIgnoreCase("y"))
+            clear = true;
+
+        // first time
         printBoard();
         System.out.print(" Choose a position(1-9, Q/q to exit):  ");
         input = read.readLine();
@@ -37,76 +52,31 @@ public class JicJacJoe {
 
             switch (input) {
                 case "1":
-                    if (board[1][1].equals("1"))
-                        board[1][1] = current;
-                    if (current.equals("X"))
-                        values[1] = 1;
-                    else
-                        values[1] = 2;
+                    switching("1", 1, 1);
                     break;
                 case "2":
-                    if (board[1][3].equals("2"))
-                        board[1][3] = current;
-                    if (current.equals("X"))
-                        values[2] = 1;
-                    else
-                        values[2] = 2;
+                    switching("2", 1, 3);
                     break;
                 case "3":
-                    if (board[1][5].equals("3"))
-                        board[1][5] = current;
-                    if (current.equals("X"))
-                        values[3] = 1;
-                    else
-                        values[3] = 2;
+                    switching("3", 1, 5);
                     break;
                 case "4":
-                    if (board[3][1].equals("4"))
-                        board[3][1] = current;
-                    if (current.equals("X"))
-                        values[4] = 1;
-                    else
-                        values[4] = 2;
+                    switching("4", 3, 1);
                     break;
                 case "5":
-                    if (board[3][3].equals("5"))
-                        board[3][3] = current;
-                    if (current.equals("X"))
-                        values[5] = 1;
-                    else
-                        values[5] = 2;
+                    switching("5", 3, 3);
                     break;
                 case "6":
-                    if (board[3][5].equals("6"))
-                        board[3][5] = current;
-                    if (current.equals("X"))
-                        values[6] = 1;
-                    else
-                        values[6] = 2;
+                    switching("6", 3, 5);
                     break;
                 case "7":
-                    if (board[5][1].equals("7"))
-                        board[5][1] = current;
-                    if (current.equals("X"))
-                        values[7] = 1;
-                    else
-                        values[7] = 2;
+                    switching("7", 5, 1);
                     break;
                 case "8":
-                    if (board[5][3].equals("8"))
-                        board[5][3] = current;
-                    if (current.equals("X"))
-                        values[8] = 1;
-                    else
-                        values[8] = 2;
+                    switching("8", 5, 3);
                     break;
                 case "9":
-                    if (board[5][5].equals("9"))
-                        board[5][5] = current;
-                    if (current.equals("X"))
-                        values[9] = 1;
-                    else
-                        values[9] = 2;
+                    switching("9", 5, 5);
                     break;
                 case "Q":
                 case "q":
@@ -117,20 +87,39 @@ public class JicJacJoe {
 
             }
 
-            clearScreen();
             printBoard();
-            System.out.print(" Choose a position(1-9, Q/q to exit):  ");
             input = read.readLine();
 
         }
     }
 
-    public static void clearScreen() {
+    private static void switching(String input, int row, int col) {
+        if (board[row][col].equals(input)) {
+            board[row][col] = current;
+            if (current.equals("X")) {
+                values[Integer.parseInt(input)] = 1;
+                current = "O";
+            } else {
+                values[Integer.parseInt(input)] = 2;
+                current = "X";
+            }
+            invalidInput = false;
+        } else {
+            invalidInput = true;
+        }
+    }
+
+    private static void clearScreen() {
         System.out.println("\033[H\033[2J");
     }
 
-    public static void printBoard() {
-        clearScreen();
+    private static void printBoard() {
+        if (clear)
+            clearScreen();
+
+        System.out.println("\t\t Score");
+        System.out.println("Player 1: " + score[0] + "\t\t\t Player 2:" + score[1] + "\n\n");
+        System.out.println("Player " + current + " turn!!");
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
@@ -138,5 +127,9 @@ public class JicJacJoe {
             }
             System.out.println();
         }
+        System.out.println();
+        if (invalidInput)
+            System.out.println("Box already filled. Choose a different box.");
+        System.out.print(" Choose a position(1-9 | Q/q to exit):  ");
     }
 }
