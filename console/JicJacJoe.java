@@ -94,9 +94,10 @@ public class JicJacJoe {
                     score[1]++;
                 else
                     score[0]++;
+                resetBoard();
                 printBoard();
-                System.out.println("\nExiting...");
-                break;
+                // System.out.println("\nExiting...");
+                // break;
             }
             input = read.readLine();
 
@@ -150,6 +151,13 @@ public class JicJacJoe {
 
     private static void clearScreen() {
         System.out.println("\033[H\033[2J");
+    }
+
+    private static void resetBoard() {
+        board = new String[][] { { "|", "-", "-", "-", "-", "-", "|" }, { "|", "1", "|", "2", "|", "3", "|" },
+                { "|", "-", "|", "-", "|", "-", "|" }, { "|", "4", "|", "5", "|", "6", "|" },
+                { "|", "-", "|", "-", "|", "-", "|" }, { "|", "7", "|", "8", "|", "9", "|" },
+                { "|", "-", "-", "-", "-", "-", "|" }, };
     }
 
     private static void printBoard() {
