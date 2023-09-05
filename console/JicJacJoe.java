@@ -88,11 +88,16 @@ public class JicJacJoe {
 
             }
 
+            printBoard();
             if (logic()) {
-                System.out.println("Exiting...");
+                if (current.equals("X"))
+                    score[1]++;
+                else
+                    score[0]++;
+                printBoard();
+                System.out.println("\nExiting...");
                 break;
             }
-            printBoard();
             input = read.readLine();
 
         }
@@ -115,9 +120,10 @@ public class JicJacJoe {
     }
 
     private static boolean logic() {
-        for (int i = 1; i < 10; i++) {
-            System.out.print(values[i] + " ");
-        }
+        // debugging code
+        // for (int i = 1; i < 10; i++) {
+        // System.out.print(values[i] + " ");
+        // }
 
         int[][] possibilities = {
                 { 1, 5, 9 },
@@ -161,9 +167,10 @@ public class JicJacJoe {
             System.out.println();
         }
         System.out.println();
-        for (int i : values) {
-            System.out.print(i + " ");
-        }
+        // debugging code
+        // for (int i : values) {
+        // System.out.print(i + " ");
+        // }
         System.out.println();
         if (invalidInput)
             System.out.println("Box already filled. Choose a different box.");
