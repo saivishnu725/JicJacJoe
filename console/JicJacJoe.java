@@ -105,7 +105,7 @@ public class JicJacJoe {
                 values[Integer.parseInt(input)] = 1;
                 current = "O";
             } else {
-                values[Integer.parseInt(input)] = 2;
+                values[Integer.parseInt(input)] = 10;
                 current = "X";
             }
             invalidInput = false;
@@ -119,52 +119,26 @@ public class JicJacJoe {
             System.out.print(values[i] + " ");
         }
 
-        // int[][] possibilities = {
-        // { 1, 5, 9 },
-        // { 7, 5, 3 },
-        // { 1, 2, 3 },
-        // { 4, 5, 6 },
-        // { 7, 8, 9 },
-        // { 1, 4, 7 },
-        // { 2, 5, 8 },
-        // { 3, 6, 9 }
-        // };
+        int[][] possibilities = {
+                { 1, 5, 9 },
+                { 7, 5, 3 },
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 },
+                { 1, 4, 7 },
+                { 2, 5, 8 },
+                { 3, 6, 9 }
+        };
 
-        // for (int i = 0; i < 8; i++) {
-
-        // int curr = current.equals("X") ? 1 : 2;
-        // int pos1 = values[possibilities[i][0]];
-        // int pos2 = values[possibilities[i][1]];
-        // int pos3 = values[possibilities[i][2]];
-        // if (pos1 == curr &&
-        // pos2 == curr &&
-        // pos3 == curr)
-        // System.out.println("hello");
-
-        // score[0]++;
-        // win
-        // }
-
-        // diagonal
-        if ((values[0] == values[5] && values[0] == values[9]) || (values[3] == values[5] && values[3] == values[7])) {
-            won = true;
-        } else {
-            // horizontal
-            for (int i = 1; i < 9; i += 3) {
-                if ((values[i] == values[i + 1] && values[i] == values[i + 2])){
-                    System.out.println("True 1");
-                    return true;
-                    
-                }
+        for (int i = 0; i < possibilities.length; i++) {
+            int sum = 0;
+            for (int j = 0; j < 3; j++) {
+                sum += values[possibilities[i][j]];
             }
-            // vertical
-            for (int i = 1; i < 3; i++) {
-                if ((values[i] == values[i + 3] && values[i] == values[i + 6])){
-                    System.out.println("true 2");
-                    return true;
-                }
-            }
+            if (sum == 3 || sum == 30)
+                return true;
         }
+
         return false;
     }
 
@@ -185,6 +159,10 @@ public class JicJacJoe {
                 System.out.print(board[i][j] + " ");
             }
             System.out.println();
+        }
+        System.out.println();
+        for (int i : values) {
+            System.out.print(i + " ");
         }
         System.out.println();
         if (invalidInput)
