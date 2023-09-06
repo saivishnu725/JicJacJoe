@@ -81,11 +81,10 @@ public class JicJacJoe {
                     break;
                 case "Q":
                 case "q":
-                    // showScore();
+                    showScore(true);
                     return;
                 default:
                     System.out.println(" Invalid input. Try again! ");
-
             }
 
             printBoard();
@@ -164,9 +163,8 @@ public class JicJacJoe {
     private static void printBoard() {
         if (clear)
             clearScreen();
+        showScore(false);
 
-        System.out.println("\t\t Score");
-        System.out.println("Player 1: " + score[0] + "\t\t\t Player 2:" + score[1] + "\n\n");
         System.out.println("Player " + current + " turn!!");
 
         for (int i = 0; i < 7; i++) {
@@ -184,5 +182,16 @@ public class JicJacJoe {
         if (invalidInput)
             System.out.println("Box already filled. Choose a different box.");
         System.out.print(" Choose a position(1-9 | Q/q to exit):  ");
+    }
+
+    private static void showScore(boolean exit) {
+        if (exit && clear)
+            clearScreen();
+        System.out.println("\n\n\n\t\t Score");
+        System.out.println("Player 1: " + score[0] + "\t\t\t Player 2:" + score[1] + "\n\n");
+        if (score[0] > score[1])
+            System.out.println("Player X wins!!");
+        else
+            System.out.println("Player O wins!!");
     }
 }
