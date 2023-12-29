@@ -1,12 +1,20 @@
 # jicjacjoe 
 
-a (two?) TicTacToe game using Java
+a  TicTacToe game using Java
 
 # explanation
-I will make a terminal and GUI version of both. Nothing else is left to explain -_-
+
+Nothing to explain here. It is a TicTacToe game for the console.
+
+# features
+
+* the game obviously!
+* clear screen after every attempt (not default)
+* the second player wins by default if no games are played (it is definitely "NOT" a bug. it is a feature. I REPEAT. THIS IS NOT A BUG)
 
 # excuse
-I didn't do the GUI version of it because all the Java GUI libraries have ugly UI
+
+I didn't do the GUI version because all the Java GUI libraries have ugly UI
 
 # 
 ## License
